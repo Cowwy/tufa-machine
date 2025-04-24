@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-e@dxe12_p@mr27(7ajm)ncgb@7exz7q5zeogh)_6uj8xi2m(^a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['test.tufa.hu', 'localhost', '127.0.0.1', '192.168.0.209', '']
+ALLOWED_HOSTS = ['89.135.114.255', 'test.tufa.hu', 'localhost', '127.0.0.1', '192.168.0.209', '']
 
 
 # Application definition
