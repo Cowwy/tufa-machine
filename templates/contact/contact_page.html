@@ -1,0 +1,415 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% if LANGUAGE_CODE == 'sk' %}Kontakt a Projekty{% else %}Kapcsolat és Pályázatok{% endif %} - TUFA MACHINE
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Általános szekció stílus */
+    .contact-page-section {
+        padding: 3rem 0;
+        background-color: #f9f9f9;
+    }
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .section-title h1 {
+        font-size: 2.5rem;
+        color: var(--dark);
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+  /*
+    .section-title h1:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--primary);
+    }
+
+    /* Contact Grid Layout */
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin-bottom: 4rem;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        padding: 2.5rem;
+    }
+    
+    @media (min-width: 992px) {
+        .contact-grid {
+            grid-template-columns: repeat(2, 1fr);
+            align-items: start;
+        }
+    }
+
+    /* Címek stílusa */
+    .contact-info h2, .map-container h2, .grants-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.8rem;
+        padding-bottom: 0.8rem;
+        border-bottom: 2px solid var(--primary);
+        color: var(--dark);
+        position: relative;
+    }
+
+    /* Kontakt Infó Doboz */
+    .contact-info-card {
+        background-color: white;
+        padding: 0;
+        border-radius: 8px;
+    }
+    
+    .contact-info p {
+        margin-bottom: 1.2rem;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        color: #555;
+    }
+    
+    .contact-info strong {
+        color: var(--dark);
+        display: block;
+        margin-bottom: 0.3rem;
+        font-weight: 600;
+    }
+    
+    .contact-info a {
+        text-decoration: none;
+        color: var(--primary);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        word-break: break-word;
+    }
+    
+    .contact-info a:hover {
+        text-decoration: underline;
+        color: var(--primary-dark, #e67e22);
+    }
+
+    /* Csapatkép */
+    .team-image-container {
+        text-align: center;
+        margin: 2.5rem 0;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+    
+    .team-image-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease;
+    }
+    
+    .team-image-container:hover img {
+        transform: scale(1.02);
+    }
+
+    /* Social Ikonok */
+    .social-icons {
+        margin-top: 2rem;
+        text-align: left;
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        background-color: #f5f5f5;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .social-icons img {
+        height: 24px;
+        width: 24px;
+        transition: transform 0.2s ease;
+        /* Eltávolítjuk az alt szöveget, hogy ne legyen szöveg az ikonok helyett */
+        font-size: 0;
+        color: transparent;
+    }
+    
+    .social-icons a:hover {
+        background-color: var(--primary);
+        transform: translateY(-3px);
+    }
+    
+    .social-icons a:hover img {
+        filter: brightness(0) invert(1);
+    }
+
+    /* Térkép konténer */
+    .map-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .map-wrapper {
+        flex-grow: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        position: relative;
+        min-height: 450px;
+    }
+    
+    .map-container iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 10px;
+    }
+
+    /* Pályázatok Szekció */
+    .grants-section {
+        padding: 4rem 0;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        margin-top: 2rem;
+    }
+    
+    .grants-section .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .grants-section .section-title h2 {
+        font-size: 2.2rem;
+        border-bottom: none;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    /*
+    .grants-section .section-title h2:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: var(--primary);
+    }
+    */
+    .grant-logos {
+        text-align: center;
+        margin-bottom: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+    
+    .grant-logos img {
+        max-height: 80px;
+        width: auto;
+        transition: transform 0.3s ease;
+    }
+    
+    .grant-logos img:hover {
+        transform: scale(1.05);
+    }
+    
+    .grants-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1.5rem;
+    }
+    
+    @media (min-width: 992px) {
+        .grants-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    .grant-item {
+        background-color: #f9f9f9;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        border-left: 5px solid var(--primary);
+        transition: transform 0.3s ease;
+    }
+    
+    .grant-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .grant-item h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1.2rem;
+        color: var(--dark);
+        line-height: 1.4;
+    }
+    
+    .grant-item p {
+        margin-bottom: 0.8rem;
+        line-height: 1.6;
+        color: #555;
+    }
+    
+    .grant-item strong {
+        color: var(--primary);
+        font-weight: 600;
+    }
+    
+    /* Responsive fixes */
+    @media (max-width: 768px) {
+        .section-title h1 {
+            font-size: 2rem;
+        }
+        
+        .contact-grid, .grants-container {
+            padding: 1.5rem;
+        }
+        
+        .grant-item {
+            padding: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="contact-page-section">
+    <div class="container">
+        <div class="section-title">
+            <h1 data-lang-hu="Kapcsolat" data-lang-sk="Kontakt">
+                {% if LANGUAGE_CODE == 'sk' %}Kontakt{% else %}Kapcsolat{% endif %}
+            </h1>
+        </div>
+
+        <div class="contact-grid">
+            <!-- Bal oszlop: Infók -->
+            <div class="contact-info">
+                <h2 data-lang-hu="Elérhetőségeink:" data-lang-sk="Naše kontaktné údaje">
+                    {% if LANGUAGE_CODE == 'sk' %}Naše kontaktné údaje{% else %}Elérhetőségeink{% endif %}
+                </h2>
+
+                <div class="contact-info-card">
+                    <p><strong>Tufa Machine</strong><br> Keszel Csaba ev.<br> Adószám: 60865276-2-39</p>
+
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Adresa prevádzky:{% else %}Telephelyünk címe:{% endif %}</strong>
+                        8409, Úrkút, külterület hrsz. 0133/1 (Béke utca)
+                    </p>
+
+                    <div class="team-image-container">
+                        <img src="{% static 'images/team.jpg' %}" alt="Tufa Machine Csapat">
+                    </div>
+
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Kontaktné osoby:{% else %}Kapcsolattartók:{% endif %}</strong>
+                        <span class="contact-person">Dallos Noémi: <a href="tel:+36317808601">+36 31 780 8601</a></span><br>
+                        <span class="contact-person">Kőhegyi Tamás: <a href="tel:+36709042948">+36 70 904 2948</a></span><br>
+                        <span class="contact-person">Keszel Csaba: <a href="tel:+36209442727">+36 20 944 2727</a></span>
+                    </p>
+
+                    <p><strong>Email:</strong> <a href="mailto:info@tufa.hu">info@tufa.hu</a></p>
+
+                    <div class="social-icons">
+                        <!-- Csak ikonok, szöveg nélkül -->
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><img src="{% static 'images/facebook.png' %}" alt=""></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><img src="{% static 'images/tiktok.png' %}" alt=""></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><img src="{% static 'images/insta.png' %}" alt=""></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><img src="{% static 'images/yt.png' %}" alt=""></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jobb oszlop: Térkép -->
+            <div class="map-container">
+                <h2 data-lang-hu="Térkép" data-lang-sk="Mapa">
+                    {% if LANGUAGE_CODE == 'sk' %}Mapa{% else %}Térkép{% endif %}
+                </h2>
+                
+                <div class="map-wrapper">
+                    {% comment %}
+                    !!! FONTOS: CSERÉLD LE EZT AZ IFRAME-ET A GOOGLE MAPS-BŐL KIMÁSOLT KÓDDAL !!!
+                    1. Menj a maps.google.com oldalra.
+                    2. Keresd meg a címet: 8409 Úrkút, külterület hrsz. 0133/1
+                    3. Kattints a "Megosztás" gombra.
+                    4. Válaszd a "Térkép beágyazása" fület.
+                    5. Kattints a "HTML MÁSOLÁSA" gombra.
+                    6. Illeszd be ide a teljes kimásolt kódot (az alábbi iframe helyére).
+                    {% endcomment %}
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d35520.991133539756!2d17.634640468400345!3d47.07015451586864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4769a2dd5140feb7%3A0xd05f8eb10f3e231!2sTufa%20Machine!5e0!3m2!1shu!2ses!4v1745345519929!5m2!1shu!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div> <!-- contact-grid vége -->
+
+        <!-- PÁLYÁZATOK SZEKCIÓ -->
+        <section class="grants-section">
+            <div class="section-title">
+                <h2 data-lang-hu="Pályázataink" data-lang-sk="Naše Granty">
+                    {% if LANGUAGE_CODE == 'sk' %}Naše Granty{% else %}Pályázataink{% endif %}
+                </h2>
+            </div>
+
+            <div class="grant-logos">
+                <!-- Tedd be a logókat: static/pics/grants/... -->
+                <!--<img src="{% static 'pics/grants/szechenyi.png' %}" alt="Széchenyi Terv Plusz"> -->
+                <!--<img src="{% static 'pics/grants/magyar_falu.png' %}" alt="Magyar Falu Vállalkozás-újraindítási Program">-->
+            </div>
+
+            <div class="grants-container">
+                <!-- GINOP PLUSZ-1.2.3-21 -->
+                <div class="grant-item">
+                    <h3 data-lang-hu="GINOP Plusz-1.2.3-21 - A mikro-, kis- és középvállalkozások modern üzleti és termelési kihívásokhoz való alkalmazkodását segítő fejlesztések támogatása"
+                        data-lang-sk="GINOP Plusz-1.2.3-21 - Podpora rozvoja mikropodnikov, malých a stredných podnikov na prispôsobenie sa moderným obchodným a výrobným výzvam">
+                        {% if LANGUAGE_CODE == 'sk' %}GINOP Plusz-1.2.3-21 - Podpora rozvoja mikropodnikov...{% else %}GINOP Plusz-1.2.3-21 - A mikro-, kis- és középvállalkozások...{% endif %}
+                    </h3>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Identifikačné číslo projektu:{% else %}Projekt azonosító száma:{% endif %}</strong> GINOP_PLUSZ-1.2.3-21-2022-04415</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Názov príjemcu:{% else %}Kedvezményezett neve:{% endif %}</strong> Keszel Csaba egyéni vállalkozó</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Výška podpory:{% else %}Támogatás összege:{% endif %}</strong> 19 515 515 Ft</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Miera podpory:{% else %}Támogatás mértéke:{% endif %}</strong> 69.99 %</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Popis projektu:{% else %}Projekt leírása:{% endif %}</strong> {% if LANGUAGE_CODE == 'sk' %}V rámci tohto projektu sa realizoval nákup 1 nového rýpadla a 1 nakladača...{% else %}Jelen projekt keretén belül 1 db új kotrógép és 1 db rakodógép beszerzése valósult meg...{% endif %}</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Dátum ukončenia projektu:{% else %}Projekt befejezési dátuma:{% endif %}</strong> 2023.12.31.</p>
+                </div>
+
+                <!-- GINOP-1.2.9-20 -->
+                <div class="grant-item">
+                    <h3 data-lang-hu="GINOP-1.2.9-20 - Hátrányos helyzetű településeken működő mikro- és kisvállalkozások fejlesztéseinek támogatása"
+                        data-lang-sk="GINOP-1.2.9-20 - Podpora rozvoja mikropodnikov a malých podnikov pôsobiacich v znevýhodnených obciach">
+                        {% if LANGUAGE_CODE == 'sk' %}GINOP-1.2.9-20 - Podpora rozvoja mikropodnikov...{% else %}GINOP-1.2.9-20 - Hátrányos helyzetű településeken működő...{% endif %}
+                    </h3>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Identifikačné číslo projektu:{% else %}Projekt azonosító száma:{% endif %}</strong> GINOP-1.2.9-20-2021-05886</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Názov príjemcu:{% else %}Kedvezményezett neve:{% endif %}</strong> Keszel Csaba egyéni vállalkozó</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Výška podpory:{% else %}Támogatás összege:{% endif %}</strong> 4 375 000 Ft</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Miera podpory:{% else %}Támogatás mértéke:{% endif %}</strong> 70 %</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Popis projektu:{% else %}Projekt leírása:{% endif %}</strong> {% if LANGUAGE_CODE == 'sk' %}Nákup 1 minirýpadla typu Bobcat E19 s cieľom zvýšenia efektivity práce.{% else %}1 db Bobcat E19 típusú minikotró beszerzése, a munkavégzés hatékonyságának növelése érdekében.{% endif %}</p>
+                    <p><strong>{% if LANGUAGE_CODE == 'sk' %}Dátum ukončenia projektu:{% else %}Projekt befejezési dátuma:{% endif %}</strong> 2022.11.30.</p>
+                </div>
+            </div>
+        </section>
+    </div> <!-- container vége -->
+</section>
+{% endblock %}

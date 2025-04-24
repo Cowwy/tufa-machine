@@ -1,0 +1,66 @@
+{% load static %} {# Statikus fájlokhoz (pl. logó) #}
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-about">
+                    {# Logó képének elérési útja frissítve #}
+                    <img src="{% static 'images/tm_logo_sz.jpg' %}" alt="TUFA MACHINE logo" class="footer-logo" >
+                    <p data-lang-hu="15 éve az építőipari gépek és berendezések forgalmazásában."
+                       data-lang-sk="15 rokov v predaji stavebných strojov a zariadení.">
+                       15 éve az építőipari gépek és berendezések forgalmazásában.
+                    </p>
+                </div>
+                <div class="social-links">
+                     {# Ezeket a linkeket később cseréld le a valós profilokra #}
+                     {# FontAwesome ikonok használata javasolt az emojik helyett a jobb konzisztencia érdekében #}
+                     {# pl. <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a> #}
+                    <a href="#" class="social-link" aria-label="Telefon">📱</a>
+                    <a href="#" class="social-link" aria-label="Email">📧</a>
+                    <a href="#" class="social-link" aria-label="Facebook">📘</a>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="footer-title" data-lang-hu="Navigáció" data-lang-sk="Navigácia">Navigáció</h3>
+                <ul class="footer-links">
+                     {# A href értékeket később cseréld le {% url '...' %}-ra #}
+                     <li><a href="/" data-lang-hu="Főoldal" data-lang-sk="Domov">Főoldal</a></li>
+                    
+                     <li><a href="#" data-lang-hu="Galéria" data-lang-sk="Galéria">Galéria</a></li>
+                     <li><a href="#" data-lang-hu="Kapcsolat" data-lang-sk="Kontakt">Kapcsolat</a></li>
+                </ul>
+            </div>
+
+            <div>
+                 <h3 class="footer-title" data-lang-hu="Termékek" data-lang-sk="Produkty">Termékek</h3>
+                 <ul class="footer-links">
+                      {# A href értékeket később cseréld le {% url '...' %}-ra #}
+                      <li><a href="/xcmg-gepek/">XCMG munkagépek</a></li>
+                     <li><a href="/erdeszeti-gepek/" data-lang-hu="Erdészeti gépek" data-lang-sk="Lesné stroje">Erdészeti gépek</a></li>
+                     <li><a href="/mezogazdasagi-gepek/" data-lang-hu="Mezőgazdasági gépek" data-lang-sk="Poľnohospodárske stroje">Mezőgazdasági gépek</a></li>
+                     <li><a href="/epitoipari-gepek/" data-lang-hu="Építőipari gépek" data-lang-sk="Stavebné stroje">Építőipari gépek</a></li>
+                     <li><a href="/rampak/" data-lang-hu="Rámpák" data-lang-sk="Rámpy">Építőipari gépek</a></li>
+                     
+                     <li><a href="/hasznalt-gepek/" data-lang-hu="Használt gépek" data-lang-sk="Použité stroje">Használt gépek</a></li>
+                 </ul>
+            </div>
+
+            <div class="footer-contact-info">
+                <h3 class="footer-title" data-lang-hu="Elérhetőségek" data-lang-sk="Kontaktné údaje">Elérhetőségek</h3>
+                 <p><i>📍</i> <span>8409, Úrkút, külterület hrsz. 0133/1 (Béke utca)</span></p>
+                 <p><i>📱</i> <span>+36 20 944 2727</span></p>
+                 <p><i>✉️</i> <span>info@tufa.hu</span></p>
+                   <p><i>🕒</i> <span data-lang-hu="H-P: 8:00-16:00" data-lang-sk="Po-Pi: 8:00-16:00">H-P: 8:00-16:00</span></p>
+            </div>
+        </div>
+
+        <div class="copyright">
+               {# A JS megoldás helyett jobb lenne Django sablonból kiíratni az évet, de ez is működik #}
+               <p>&copy; <script>document.write(new Date().getFullYear())</script> TUFA MACHINE Kft.
+                <span data-lang-hu="Minden jog fenntartva." data-lang-sk="Všetky práva vyhradené.">Minden jog fenntartva.</span>
+             </p>
+        </div>
+    </div>
+</footer>
